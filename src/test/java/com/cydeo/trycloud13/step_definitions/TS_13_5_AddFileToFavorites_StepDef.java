@@ -17,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class TS_13_5_AddFileToFavorites_StepDef {
-    WebElement chosenFile;
+    static WebElement chosenFile;
     WebElement elementOfTheeDots;
 
     WebElement elementAddFavorites;
@@ -28,6 +28,7 @@ public class TS_13_5_AddFileToFavorites_StepDef {
     FavoritePage favoritePage = new FavoritePage();
     Actions actions = new Actions(Driver.getDriver());
 
+
     @Given("user on the dashboard page")
     public void user_on_the_dashboard_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -35,80 +36,42 @@ public class TS_13_5_AddFileToFavorites_StepDef {
         loginPage.inputPassword.sendKeys(ConfigurationReader.getProperty("password"));
         loginPage.logInBtn.click();
     }
+
     @When("the user clicks the {string} module")
     public void the_user_clicks_the_module(String string) {
-
         BasePage.chooseTheMenu(string);
-
-//        basePage.filesBtn.click();
     }
+
     @When("the user clicks action-icon from any file on the page")
     public void the_user_clicks_action_icon_from_any_file_on_the_page() {
-        Faker faker = new Faker();
-        int num = faker.number().numberBetween(1, filesPage.actionIconsList.size());
 
-        for (int i = 1; i <= filesPage.actionIconsList.size(); i++) {
-            if (i == num) {
-                chosenFile = filesPage.objectsFilesList.get(i);
-                chosenFileText = chosenFile.getText();
-                elementOfTheeDots = filesPage.actionIconsList.get(i);
-            }
-        }
+        chosenFileText = FilesPage.actionIconsListMethod().getText();
         System.out.println("chosenFileText = " + chosenFileText);
-        elementOfTheeDots.click();
-
     }
+
     @When("user choose the {string} option")
     public void user_choose_the_option(String string) {
-
-//        Actions actions = new Actions(Driver.getDriver());
-
-        System.out.println("filesPage.removeFromFavorites.getText() = " + filesPage.removeFromFavorites.getText());
- //       if (filesPage.removeFromFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
-//        if (FilesPage.chooseInThreeDotsOption("Remove from favorites").getText().equalsIgnoreCase("Remove from favorites")) {
-        if (FilesPage.chooseInThreeDotsOption("Remove from favorites").isDisplayed()) {
-            BrowserUtils.sleep(3);
-
-            actions.moveToElement(FilesPage.chooseInThreeDotsOption("Remove from favorites")).click().perform();
+        elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
+        System.out.println("element = " + elementAddFavorites.getText());
+        if (elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
+            elementAddFavorites.click();
             the_user_clicks_action_icon_from_any_file_on_the_page();
-
-//            elementOfTheeDots.click();
-//            actions.moveToElement(FilesPage.chooseInThreeDotsOption(string)).click().perform();
-        }else if (FilesPage.chooseInThreeDotsOption(string).isDisplayed()){
             BrowserUtils.sleep(3);
-//            actions.moveToElement(filesPage.removeFromFavorites).click().perform();
- //           FilesPage.chooseInThreeDotsOption(string).click();
-            actions.moveToElement(FilesPage.chooseInThreeDotsOption(string)).click().perform();
+        } else if (elementAddFavorites.getText().equals("Add to favorites")){
+            BrowserUtils.sleep(3);
+            elementAddFavorites.click();
         }
-
-
-
-//        elementAddFavorites = FilesPage.chooseInThreeDotsOption(string);
-//        System.out.println("element = " + elementAddFavorites.getText());
-//        System.out.println("filesPage.favoriteOptionFromThreeDots.getText() = " + elementAddFavorites.getText());
-//        if(elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")){
-//            elementAddFavorites.click();
-//            the_user_clicks_action_icon_from_any_file_on_the_page();
-//            elementOfTheeDots.click();
-//            elementAddFavorites.click();
-
-//
-//            BrowserUtils.sleep(3);
-//        }
-//        }else {
-//            BrowserUtils.sleep(3);
-//            elementAddFavorites.click();}
-//        BrowserUtils.sleep(3);}
-//a[@class='menuitem action action-favorite permanent']/span[2]
+        BrowserUtils.sleep(3);
     }
+
 
     @When("user click the {string} sub-module on the left side")
     public void user_click_the_sub_module_on_the_left_side(String string) {
         BrowserUtils.sleep(3);
-//        filesPage.favoritesBtn.click();
-        actions.moveToElement(FilesPage.leftSideMenu(string)).click().perform();
+        FilesPage.leftSideMenu(string).click();
 
     }
+
     @Then("Verify the chosen file is listed on the table")
     public void verify_the_chosen_file_is_listed_on_the_table() {
         BrowserUtils.sleep(3);
@@ -121,6 +84,6 @@ public class TS_13_5_AddFileToFavorites_StepDef {
                 System.out.println("getText = " + getText);
             }
         }
-        Assert.assertEquals(chosenFileText,getText);
+        Assert.assertEquals(chosenFileText, getText);
     }
 }
