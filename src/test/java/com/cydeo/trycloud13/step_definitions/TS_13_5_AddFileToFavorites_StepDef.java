@@ -45,23 +45,26 @@ public class TS_13_5_AddFileToFavorites_StepDef {
     @When("the user clicks action-icon from any file on the page")
     public void the_user_clicks_action_icon_from_any_file_on_the_page() {
 
-        chosenFileText = FilesPage.actionIconsListMethod().getText();
-        System.out.println("chosenFileText = " + chosenFileText);
+//        chosenFileText = FilesPage.actionIconsListMethod().getText();
+//        System.out.println("chosenFileText = " + chosenFileText);
     }
 
     @When("user choose the {string} option")
     public void user_choose_the_option(String string) {
-        elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
-        System.out.println("element = " + elementAddFavorites.getText());
-        if (elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
-            elementAddFavorites.click();
-            the_user_clicks_action_icon_from_any_file_on_the_page();
-            BrowserUtils.sleep(3);
-        } else if (elementAddFavorites.getText().equals("Add to favorites")){
-            BrowserUtils.sleep(3);
-            elementAddFavorites.click();
-        }
-        BrowserUtils.sleep(3);
+//        elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
+//        System.out.println("element = " + elementAddFavorites.getText());
+//        if (elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
+//            elementAddFavorites.click();
+//            the_user_clicks_action_icon_from_any_file_on_the_page();
+//            BrowserUtils.sleep(3);
+//        } else if (elementAddFavorites.getText().equals("Add to favorites")){
+//            BrowserUtils.sleep(3);
+//            elementAddFavorites.click();
+//        }
+//        BrowserUtils.sleep(3);
+        chosenFileText = FilesPage.user_choose_the_option();
+        System.out.println("chosenFileText in the Steps= " + chosenFileText);
+
     }
 
 
@@ -75,7 +78,7 @@ public class TS_13_5_AddFileToFavorites_StepDef {
     @Then("Verify the chosen file is listed on the table")
     public void verify_the_chosen_file_is_listed_on_the_table() {
         BrowserUtils.sleep(3);
-        String getText = "";
+        String getText = "2";
         for (WebElement each : favoritePage.favoritesFiles) {
             System.out.println("each.getText() = " + each.getText());
             if (each.getText().equalsIgnoreCase(chosenFileText)) {

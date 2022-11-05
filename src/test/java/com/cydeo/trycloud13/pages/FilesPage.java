@@ -12,8 +12,9 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class FilesPage {
-
+    static WebElement chosenFile;
     WebElement element;
+    static String chosenFileText;
 
 
     public FilesPage() {
@@ -79,7 +80,7 @@ public class FilesPage {
         List<WebElement> actionIconsList = Driver.getDriver().findElements(By.xpath("//a[@class='action action-menu permanent']"));
         List<WebElement> objectsFilesList = Driver.getDriver().findElements(By.xpath("(//tbody[@id='fileList'])[1]//span[@class='innernametext']"));
         int num = faker.number().numberBetween(1, actionIconsList.size());
-        WebElement chosenFile = null;
+//        WebElement chosenFile;
         WebElement elementOfTheeDots;
         for (int i = 1; i <= actionIconsList.size(); i++) {
             if (i == num) {
@@ -96,6 +97,32 @@ public class FilesPage {
 //        WebElement leftSideMenu = Driver.getDriver().findElement(By.xpath(locator));
 //        return leftSideMenu;
 //    }
+
+    public static String user_choose_the_option() {
+        chosenFileText = FilesPage.actionIconsListMethod().getText();
+        System.out.println("chosenFileText in Files = " + chosenFileText);
+        String chosen = "";
+        String chosen1 = "";
+        WebElement elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
+        System.out.println("element = " + elementAddFavorites.getText());
+        if (elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
+            elementAddFavorites.click();
+            System.out.println("chosenFileText is REMOVED in Files = " + chosenFileText);
+            BrowserUtils.sleep(3);
+            user_choose_the_option();
+
+
+        } else if (elementAddFavorites.getText().equals("Add to favorites")) {
+            BrowserUtils.sleep(3);
+            elementAddFavorites.click();
+            chosen = chosenFileText;
+            chosen1 = chosenFileText;
+            System.out.println("chosen is ADDED in Files = " + chosen1);
+            return chosen1;
+        }
+        System.out.println("chosen = " + chosen);
+        return chosen;
+    }
 }
 
 
