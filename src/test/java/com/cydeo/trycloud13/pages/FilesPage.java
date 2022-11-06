@@ -50,6 +50,7 @@ public class FilesPage {
             if (i == num) {
                 chosenFile = objectsFilesList.get(i);
                 elementOfTheeDots = actionIconsList.get(i);
+                BrowserUtils.sleep(1);
                 wait.until(ExpectedConditions.elementToBeClickable(elementOfTheeDots));
                 elementOfTheeDots.click();
             }
