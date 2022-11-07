@@ -15,10 +15,9 @@ import java.util.List;
 
 public class FilesPage {
     static WebElement chosenFile;
-    WebElement element;
     static String chosenFileText;
-    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
 
+    WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
 
 
     public FilesPage() {
@@ -34,11 +33,49 @@ public class FilesPage {
     @FindBy(xpath = "(//tbody[@id='fileList'])[1]//span[@class='innernametext']")
     public List<WebElement> objectsFilesList;
 
+    @FindBy(css = "button[class=settings-button]")
+    public WebElement settingButton;
+
+    @FindBy(xpath = "//input[@class='checkbox']/following-sibling::label")
+    public List<WebElement> listOfSettingOptions;
+
+    @FindBy(xpath = "//a[@class='icon-quota svg']//p")
+    public WebElement currentStorageSpace;
+
+    @FindBy(xpath = "//a[@class='button new']")
+    public WebElement uploadFileOption;
+
+    @FindBy(xpath = "//input[@type='file']")
+    public WebElement uploadFile;
+
+
+    /**
+     * Method for choose element from the left side on files page
+     * @param string
+     * @return WebElement
+     */
+
     public static WebElement leftSideMenu(String string) {
         String locator = "//a[.='" + string + "']";
-        WebElement leftSideMenu = Driver.getDriver().findElement(By.xpath(locator));
-        return leftSideMenu;
+        WebElement webElement = Driver.getDriver().findElement(By.xpath(locator));
+        return webElement;
     }
+
+    /**
+     * Method for choose element from popup menu after click three dots on files page
+     * @param string
+     * @return WebElement
+     */
+    public static WebElement popupMenu(String string) {
+        String locator = "//span[.='" + string + "']/..";
+        WebElement webElement = Driver.getDriver().findElement(By.xpath(locator));
+        return webElement;
+    }
+
+    /**
+     * Method for chose random element of three dots from List and comparing with List of files names
+     * @return String
+     */
     public static WebElement actionIconsListMethod() {
         Faker faker = new Faker();
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
@@ -58,11 +95,18 @@ public class FilesPage {
         return chosenFile;
     }
 
+    /**+
+     * Name of file from List of files names what is added to Favorites
+     * @return String
+     */
     public static String user_choose_the_option() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
+        BrowserUtils.sleep(1);
         chosenFileText = actionIconsListMethod().getText();
+        System.out.println("chosenFileText from Method = " + chosenFileText);
         String chosen = "";
         WebElement elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
+        System.out.println("elementAddFavorites from Method = " + elementAddFavorites.getText());
         if (elementAddFavorites.getText().equalsIgnoreCase("Remove from favorites")) {
             wait.until(ExpectedConditions.elementToBeClickable(elementAddFavorites));
             elementAddFavorites.click();
