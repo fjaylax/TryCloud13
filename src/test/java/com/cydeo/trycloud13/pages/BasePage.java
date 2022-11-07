@@ -17,6 +17,11 @@ public class BasePage {
     @FindBy(xpath = "(//a[@aria-label='Files'])[1]")
     public WebElement filesBtn;
 
+    /**
+     * Method for choose required option from the List of webElements on left top side
+     * @param string
+     */
+
     public static void chooseTheMenu(String string) {
         String locator = "(//a[@aria-label='" + string + "'])[1]";
         Driver.getDriver().findElement(By.xpath(locator)).click();
