@@ -24,8 +24,8 @@ public class RemoveFromFavorites_StepDef {
 
     @Given("user use username {string} and passcode {string} and login")
     public void userUseUsernameAndPasscodeAndLogin(String username, String password) {
-        new LoginPage().userName.sendKeys(username);
-        new LoginPage().password.sendKeys(password + Keys.ENTER);
+        new LoginPage().inputUser.sendKeys(username);
+        new LoginPage().inputPassword.sendKeys(password + Keys.ENTER);
 
     }
 

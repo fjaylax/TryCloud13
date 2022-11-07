@@ -14,6 +14,15 @@ public class BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy(id="user")
+    public WebElement userName;
+
+    @FindBy(id="password")
+    public WebElement passWord;
+
+    @FindBy(id="submit-form")
+    public WebElement loginPage;
+
 
 
     @FindBy (xpath = "//ul[@id='appmenu']/li/a")

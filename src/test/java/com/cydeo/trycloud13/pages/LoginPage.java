@@ -6,26 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class LoginPage extends BasePage{
-
-
-
-    @FindBy (id = "user")
-    public WebElement userName;
-
-    @FindBy (id = "password")
-    public WebElement password;
-
-    @FindBy (id = "submit-form")
-    public WebElement loginButton;
-
-
-    public void loginToPage(String login, String pass) {
-
-        userName.sendKeys(login);
-        password.sendKeys(pass);
-        loginButton.click();
+public class LoginPage {
+    public LoginPage() {
+        PageFactory.initElements(Driver.getDriver(), this);
     }
+
 
     @FindBy(xpath = "//input[@id='user']")
     public WebElement inputUser;
@@ -36,4 +21,11 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//input[@id='submit-form']")
     public WebElement logInBtn;
 
+
+    public void loginToPage(String login, String pass) {
+
+        inputUser.sendKeys(login);
+        inputPassword.sendKeys(pass);
+        logInBtn.click();
+    }
 }
