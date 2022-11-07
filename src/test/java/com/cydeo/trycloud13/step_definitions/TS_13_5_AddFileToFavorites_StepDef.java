@@ -75,8 +75,6 @@ public class TS_13_5_AddFileToFavorites_StepDef {
                 getText = each.getText();
             }
         }
-        System.out.println("chosenFileText = " + chosenFileText);
-        System.out.println("getText = " + getText);
         Assert.assertEquals(chosenFileText, getText);
     }
 }
