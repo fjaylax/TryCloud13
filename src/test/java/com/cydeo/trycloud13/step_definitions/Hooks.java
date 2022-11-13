@@ -3,8 +3,6 @@ package com.cydeo.trycloud13.step_definitions;
 
 import com.cydeo.trycloud13.utilities.Driver;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
