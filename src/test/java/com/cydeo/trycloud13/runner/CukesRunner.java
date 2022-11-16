@@ -13,8 +13,8 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features" ,
         glue = "com/cydeo/trycloud13/step_definitions" ,
-        dryRun = true,
-        tags = ""
+        tags = "@us_03",
+        dryRun = true
 )
 public class CukesRunner {
 
