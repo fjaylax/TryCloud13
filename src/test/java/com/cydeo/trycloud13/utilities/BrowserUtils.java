@@ -65,23 +65,17 @@ public class BrowserUtils {
      * @return List<String>
      */
     public static List<String> dropdownOptionsAsString(WebElement dropdownElement){
-
         Select select = new Select(dropdownElement);
-
         //List of all ACTUAL month <options> as a WebElement
         List<WebElement> actualOptionsAsWebElement = select.getOptions();
-
         //List of all ACTUAL month options as a String
         List<String> actualOptionsAsString = new ArrayList<>();
-
         // with using for loop we will convert each WebElement of options to String wit using getText() method
         // with using add() method we will add each String option in List<String> actual options as String
         for (WebElement each : actualOptionsAsWebElement) {
             actualOptionsAsString.add(each.getText());
         }
-
         return actualOptionsAsString;
-
     }
 
 
@@ -125,20 +119,14 @@ public class BrowserUtils {
      * @param expectedInTitle
      */
     public static void switchWindowAndVerify(String expectedInUrl, String expectedInTitle){
-
         Set<String> allWindowsHandles = Driver.getDriver().getWindowHandles();
-
         for (String each : allWindowsHandles) {
-
             Driver.getDriver().switchTo().window(each);
-
             System.out.println("Current URL: " + Driver.getDriver().getCurrentUrl());
-
             if (Driver.getDriver().getCurrentUrl().contains(expectedInUrl)){
                 break;
             }
         }
-
         //5. Assert:Title contains “expectedInTitle”
         String actualTitle = Driver.getDriver().getTitle();
         Assert.assertTrue(actualTitle.contains(expectedInTitle));

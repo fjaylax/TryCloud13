@@ -2,6 +2,7 @@ package com.cydeo.trycloud13.step_definitions;
 
 import com.cydeo.trycloud13.pages.FilesPage;
 import com.cydeo.trycloud13.utilities.BrowserUtils;
+import com.cydeo.trycloud13.utilities.ConfigurationReader;
 import com.cydeo.trycloud13.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,8 +16,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class UploadFiles_StepDef {
 
     FilesPage filesPage = new FilesPage();
-    String fileName = "Assignment";
-    String fileExt = ".pdf";
+    String fileName = ConfigurationReader.getProperty("filename");
+    String fileExt = ConfigurationReader.getProperty("fileext");
 
     @When("the user clicks the add icon on the top")
     public void the_user_clicks_the_add_icon_on_the_top() {
@@ -32,7 +33,7 @@ public class UploadFiles_StepDef {
 
           WebElement uploadFileBtn = Driver.getDriver().findElement(
                 By.xpath("//input[@type='file']"));
-          uploadFileBtn.sendKeys("C:/Users/Kirich/Downloads/" + fileName + fileExt);
+          uploadFileBtn.sendKeys(ConfigurationReader.getProperty("failpath")+ fileName + fileExt);
 
     }
 
@@ -48,8 +49,9 @@ public class UploadFiles_StepDef {
 
         boolean isFileFound = false;
         for (WebElement eachFileName : filesPage.listOfFilesNames) {
-//            System.out.println(eachFileName.getText());
-            if (eachFileName.getText().equals(fileName)) {
+            String fileNameNow = eachFileName.getText();
+            System.out.println(fileNameNow);
+            if (fileNameNow.equals(fileName)) {
                 isFileFound = true;
             }
         }

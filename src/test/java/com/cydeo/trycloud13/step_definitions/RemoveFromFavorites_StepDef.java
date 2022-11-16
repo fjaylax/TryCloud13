@@ -30,12 +30,12 @@ public class RemoveFromFavorites_StepDef {
     }
 
 
-    @When("the user clicks the {string} module")
-    public void the_user_clicks_the_module(String moduleName) {
-
-        BrowserUtils.waitFor(2);
-        BasePage.chooseTheMenu(moduleName);
-    }
+//    @When("the user clicks the {string} module")
+//    public void the_user_clicks_the_module(String moduleName) {
+//
+//        BrowserUtils.waitFor(2);
+//        BasePage.chooseTheMenu(moduleName);
+//    }
 
 
     @When("the users click action-icon from any file on the page to remove")
@@ -64,32 +64,32 @@ public class RemoveFromFavorites_StepDef {
     }
 
 
-    @When("user choose the {string} option")
-    public void user_choose_the_option(String optionToClick) {
+//    @When("user choose the {string} option")
+//    public void user_choose_the_option(String optionToClick) {
+//
+//        List<WebElement> dropMenu = Driver.getDriver().findElements(By.xpath("//div[@class='fileActionsMenu popovermenu bubble open menu']/ul/li"));
+//
+//        WebElement clickable = null;
+//        for (WebElement each : dropMenu) {
+////            System.out.println(each.getText());
+//            if (each.getText().equalsIgnoreCase(optionToClick)) {
+//                clickable = each;
+//            }
+//        }
+//        clickable.click();
+//    }
 
-        List<WebElement> dropMenu = Driver.getDriver().findElements(By.xpath("//div[@class='fileActionsMenu popovermenu bubble open menu']/ul/li"));
 
-        WebElement clickable = null;
-        for (WebElement each : dropMenu) {
-//            System.out.println(each.getText());
-            if (each.getText().equalsIgnoreCase(optionToClick)) {
-                clickable = each;
-            }
-        }
-        clickable.click();
-    }
-
-
-    @When("user click the {string} sub-module on the left side")
-    public void user_click_the_sub_module_on_the_left_side(String leftModuleOption) {
-
-        for (WebElement each : filesPage.leftMenuModules) {
-            if (each.getText().equalsIgnoreCase(leftModuleOption)) {
-                each.click();
-            }
-        }
-        BrowserUtils.waitFor(2);
-    }
+//    @When("user click the {string} sub-module on the left side")
+//    public void user_click_the_sub_module_on_the_left_side(String leftModuleOption) {
+//
+//        for (WebElement each : filesPage.leftMenuModules) {
+//            if (each.getText().equalsIgnoreCase(leftModuleOption)) {
+//                each.click();
+//            }
+//        }
+//        BrowserUtils.waitFor(2);
+//    }
 
 
     @Then("Verify that the file is removed from the Favorites sub-module’s table")
