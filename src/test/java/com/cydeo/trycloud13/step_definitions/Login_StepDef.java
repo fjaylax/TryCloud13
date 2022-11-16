@@ -18,13 +18,14 @@ public class Login_StepDef {
 
     @Given("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.userName.sendKeys(username);
-        loginPage.password.sendKeys(password);
+        loginPage.inputUser.sendKeys(username);
+        loginPage.inputPassword.sendKeys(password);
+        loginPage.logInBtn.click();
     }
 
     @When("user click the login button")
     public void user_click_the_login_button() {
-        loginPage.loginButton.click();
+        loginPage.logInBtn.click();
     }
 
     @Then("verify the user should be at the dashboard page")

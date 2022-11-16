@@ -5,7 +5,6 @@ import com.cydeo.trycloud13.pages.FavoritePage;
 import com.cydeo.trycloud13.pages.FilesPage;
 import com.cydeo.trycloud13.pages.LoginPage;
 import com.cydeo.trycloud13.utilities.BrowserUtils;
-import com.cydeo.trycloud13.utilities.ConfigurationReader;
 import com.cydeo.trycloud13.utilities.Driver;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
@@ -14,13 +13,19 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+
+
 public class TS_13_5_AddFileToFavorites_StepDef {
-    String chosenFileText;
-    LoginPage loginPage = new LoginPage();
+
+    static WebElement chosenFile;
+    static String chosenFileText;
+
+
     FavoritePage favoritePage = new FavoritePage();
     FilesPage filesPage = new FilesPage();
 
@@ -29,10 +34,11 @@ public class TS_13_5_AddFileToFavorites_StepDef {
      */
     @Given("user on the dashboard page")
     public void user_on_the_dashboard_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
-        loginPage.inputUser.sendKeys(ConfigurationReader.getProperty("username"));
-        loginPage.inputPassword.sendKeys(ConfigurationReader.getProperty("password"));
-        loginPage.logInBtn.click();
+//        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+//        loginPage.inputUser.sendKeys(ConfigurationReader.getProperty("username"));
+//        loginPage.inputPassword.sendKeys(ConfigurationReader.getProperty("password"));
+//        loginPage.logInBtn.click();
+
     }
 
     /*
@@ -72,9 +78,10 @@ public class TS_13_5_AddFileToFavorites_StepDef {
         System.out.println("filesPage.favoriteOptionFromThreeDots from StepDef = " + filesPage.favoriteOptionFromThreeDots.getText());
         if (filesPage.favoriteOptionFromThreeDots.getText().equals(string)) {
             filesPage.favoriteOptionFromThreeDots.click();
-        } else {
+        }
+        else {
             filesPage.favoriteOptionFromThreeDots.click();
-            chosenFileText = FilesPage.user_choose_the_option();
+            chosenFileText = user_choose_the_optionAddFavorite(string);
         }
     }
 
@@ -102,4 +109,53 @@ public class TS_13_5_AddFileToFavorites_StepDef {
         System.out.println("getText Assertions= " + getText);
         Assert.assertEquals(chosenFileText, getText);
     }
+
+    /**
+     * Method for chose random element of three dots from List and comparing with List of files names
+     * @return String
+     */
+    public static WebElement actionIconsListMethod() {
+        Faker faker = new Faker();
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
+        List<WebElement> actionIconsList = Driver.getDriver().findElements(By.xpath("//a[@class='action action-menu permanent']"));
+        List<WebElement> objectsFilesList = Driver.getDriver().findElements(By.xpath("(//tbody[@id='fileList'])[1]//span[@class='innernametext']"));
+        int num = faker.number().numberBetween(1, actionIconsList.size());
+        WebElement elementOfTheeDots;
+        for (int i = 1; i <= actionIconsList.size(); i++) {
+            if (i == num) {
+                chosenFile = objectsFilesList.get(i);
+                elementOfTheeDots = actionIconsList.get(i);
+                BrowserUtils.sleep(1);
+                wait.until(ExpectedConditions.elementToBeClickable(elementOfTheeDots));
+                elementOfTheeDots.click();
+            }
+        }
+        return chosenFile;
+    }
+
+    /**
+     * Name of file from List of files names what is added to Favorites
+     * @return String
+     */
+    public static String user_choose_the_optionAddFavorite(String string) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 5);
+        BrowserUtils.sleep(1);
+        chosenFileText = actionIconsListMethod().getText();
+        System.out.println("chosenFileText from Method = " + chosenFileText);
+        String chosen = "";
+        WebElement elementAddFavorites = Driver.getDriver().findElement(By.xpath("//a[@class='menuitem action action-favorite permanent']"));
+        System.out.println("elementAddFavorites from Method = " + elementAddFavorites.getText());
+        if (!elementAddFavorites.getText().equalsIgnoreCase(elementAddFavorites.getText())) {
+            wait.until(ExpectedConditions.elementToBeClickable(elementAddFavorites));
+            elementAddFavorites.click();
+            return user_choose_the_optionAddFavorite(string);
+        } else if (elementAddFavorites.getText().equals(elementAddFavorites.getText())) {
+            wait.until(ExpectedConditions.elementToBeClickable(elementAddFavorites));
+            elementAddFavorites.click();
+            chosen = chosenFileText;
+            return chosen;
+        }
+        return chosen;
+    }
+
 }

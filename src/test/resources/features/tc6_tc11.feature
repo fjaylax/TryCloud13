@@ -15,9 +15,9 @@ Feature: As a user, I should be able to remove files from favorites and upload a
     Examples:
       | username | password    |
       | user13   | Userpass123 |
-      | user43   | Userpass123 |
-      | user73   | Userpass123 |
-      | user103  | Userpass123 |
+#      | user43   | Userpass123 |
+#      | user73   | Userpass123 |
+#      | user103  | Userpass123 |
 
 
 
@@ -31,9 +31,9 @@ Feature: As a user, I should be able to remove files from favorites and upload a
     Examples:
       | username | password    |
       | user13   | Userpass123 |
-      | user43   | Userpass123 |
-      | user73   | Userpass123 |
-      | user103  | Userpass123 |
+#      | user43   | Userpass123 |
+#      | user73   | Userpass123 |
+#      | user103  | Userpass123 |
 
 
 
@@ -45,9 +45,9 @@ Feature: As a user, I should be able to remove files from favorites and upload a
     Examples:
       | username | password    |
       | user13   | Userpass123 |
-      | user43   | Userpass123 |
-      | user73   | Userpass123 |
-      | user103  | Userpass123 |
+#      | user43   | Userpass123 |
+#      | user73   | Userpass123 |
+#      | user103  | Userpass123 |
 
 
   @wip
@@ -62,6 +62,6 @@ Feature: As a user, I should be able to remove files from favorites and upload a
     Examples:
       | username | password    |
       | user13   | Userpass123 |
-      | user43   | Userpass123 |
-      | user73   | Userpass123 |
-      | user103  | Userpass123 |
+#      | user43   | Userpass123 |
+#      | user73   | Userpass123 |
+#      | user103  | Userpass123 |
